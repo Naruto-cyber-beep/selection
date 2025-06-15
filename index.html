@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scholarship Portal</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #fff;
+            color: #2575fc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Roll No and Name</h2>
+    <input type="text" id="rollno" placeholder="Enter Roll No">
+    <input type="text" id="name" placeholder="Enter Name">
+    <button onclick="validate()">Submit</button>
+
+    <audio id="success-sound" src="success.mp3"></audio>
+    <audio id="error-sound" src="error.mp3"></audio>
+    <audio id="wait-sound" src="wait.mp3"></audio>
+
+    <script>
+        function validate() {
+            const roll = document.getElementById("rollno").value.trim().toLowerCase();
+            const name = document.getElementById("name").value.trim().toLowerCase();
+
+            const correctRoll = "12210025";
+            const correctName = "anay upadhyay";
+
+            if (roll === correctRoll && name === correctName) {
+                const now = new Date();
+                const targetHour = 13; // 1 PM
+                const targetMinute = 30; // 1:30 PM
+
+                if (now.getHours() > targetHour || (now.getHours() === targetHour && now.getMinutes() >= targetMinute)) {
+                    document.getElementById("success-sound").play();
+                    setTimeout(() => {
+                        window.location.href = "result.html";
+                    }, 5000);
+                } else {
+                    alert("Wait until 1:30 PM for the results.");
+                    document.getElementById("wait-sound").play();
+                }
+            } else {
+                document.getElementById("error-sound").play();
+                setTimeout(() => {
+                    window.location.href = "error.html";
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
